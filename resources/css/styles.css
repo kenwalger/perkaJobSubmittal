@@ -1,5 +1,15 @@
 .root {
-    -fx-font-family: serif;
+    -fx-font-family: Roboto;
     -fx-hgap: 10;
     -fx-vgap: 10;
+    -fx-background-color: whitesmoke;
+}
+
+.title {
+    -fx-font-size: 80px;
+    -fx-fill: blue;
+}
+
+.text-field {
+    -fx-font-family: Helvetica;
 }

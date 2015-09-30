@@ -18,7 +18,7 @@ public class Controller {
     public void handleJobSubmittal(ActionEvent actionEvent) {
         System.out.println("Cool, this seems to kinda-sorta be working");
 
-        Perka.postApp(appJSON);
+        //Perka.postApp(appJSON);
     }
 
     public void uploadResume(ActionEvent actionEvent) {
