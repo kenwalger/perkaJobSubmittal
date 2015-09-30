@@ -1,0 +1,113 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml"
+          stylesheets="/css/styles.css">
+
+    <Text text="Perka API Job Application"
+          styleClass="title"
+          GridPane.rowIndex="0"
+          GridPane.columnSpan="4"
+          GridPane.halignment="CENTER"
+            />
+
+    <Label text="First Name: "
+           GridPane.rowIndex="1"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="firstName"
+               GridPane.rowIndex="1"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Last Name: "
+           GridPane.rowIndex="2"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="lastName"
+               GridPane.rowIndex="2"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="email: "
+           GridPane.rowIndex="3"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="email"
+               GridPane.rowIndex="3"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Position ID: "
+           GridPane.rowIndex="4"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="positionId"
+               GridPane.rowIndex="4"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Explanation of how API request was made: "
+           GridPane.rowIndex="5"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="explanation"
+               GridPane.rowIndex="5"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Projects - links to GitHub or projects: "
+           GridPane.rowIndex="6"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="projects"
+               GridPane.rowIndex="6"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Source - how did you find Perka: "
+           GridPane.rowIndex="7"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="source"
+               GridPane.rowIndex="7"
+               GridPane.columnIndex="1"
+            />
+
+    <Label text="Resume: "
+           GridPane.rowIndex="9"
+           GridPane.columnIndex="0"
+            />
+
+    <TextField fx:id="resume"
+               GridPane.rowIndex="9"
+               GridPane.columnIndex="1"
+            />
+
+    <Button text="Upload Resume"
+            onAction="#uploadResume"
+            GridPane.rowIndex="10"
+            GridPane.columnIndex="1"
+            GridPane.halignment="CENTER"
+            />
+
+    <Button text="Submit Job Application"
+            onAction="#handleJobSubmittal"
+            GridPane.rowIndex="15"
+            GridPane.columnIndex="1"
+            GridPane.halignment="CENTER"
+            />
+
+</GridPane>
