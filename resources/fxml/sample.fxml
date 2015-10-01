@@ -86,15 +86,6 @@
                GridPane.columnIndex="1"
             />
 
-    <Label text="Resume: "
-           GridPane.rowIndex="9"
-           GridPane.columnIndex="0"
-            />
-
-    <TextField fx:id="resume"
-               GridPane.rowIndex="9"
-               GridPane.columnIndex="1"
-            />
 
     <Button text="Upload Resume"
             onAction="#uploadResume"
