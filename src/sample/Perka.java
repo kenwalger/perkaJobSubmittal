@@ -13,7 +13,7 @@ public class Perka {
     static String email;
     static String positionID;
     static String explanation;
-    static String[] projects;
+    static String projects;
     static String source;
     static String resume;
 
@@ -41,7 +41,7 @@ public class Perka {
      * @param email         Email address
      * @param positionID    The ID of the position to which you are applying
      * @param explanation   How the API request was made
-     * @param projects      Links to projects, GitHub, etc
+     * @param projects      Array of links to projects, GitHub, etc
      * @param source        How did you find Perka?
      * @param resume        Base64 encoded resume from ResumeHandler
      * @return              JSON version of the application data

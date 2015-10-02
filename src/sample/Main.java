@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
         primaryStage.setTitle("Perka Job Application Submission");
-        primaryStage.setScene(new Scene(root, 650, 675)); // width, height
+        primaryStage.setScene(new Scene(root, 750, 675)); // width, height
         primaryStage.show();
     }
 

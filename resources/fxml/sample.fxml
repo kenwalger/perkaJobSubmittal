@@ -63,36 +63,72 @@
 
     <TextField fx:id="explanation"
                GridPane.rowIndex="5"
+               GridPane.columnSpan="2"
                GridPane.columnIndex="1"
             />
 
-    <Label text="Projects - links to GitHub or projects: "
+    <Label text="Links to code - "
            GridPane.rowIndex="6"
            GridPane.columnIndex="0"
             />
 
+    <Label text="GitHub: "
+           GridPane.rowIndex="7"
+           GridPane.columnIndex="1"
+            />
+
+    <TextField fx:id="gitHub"
+               GridPane.rowIndex="7"
+               GridPane.columnIndex="2"
+            />
+
+    <Label text="Personal Site: "
+           GridPane.rowIndex="8"
+           GridPane.columnIndex="1"
+            />
+
+    <TextField fx:id="personalSite"
+               GridPane.rowIndex="8"
+               GridPane.columnIndex="2"
+            />
+
+    <Label text="Other Projects: "
+           GridPane.rowIndex="9"
+           GridPane.columnIndex="1"
+            />
+
     <TextField fx:id="projects"
-               GridPane.rowIndex="6"
-               GridPane.columnIndex="1"
+               GridPane.rowIndex="9"
+               GridPane.columnIndex="2"
             />
 
     <Label text="Source - how did you find Perka: "
-           GridPane.rowIndex="7"
+           GridPane.rowIndex="10"
            GridPane.columnIndex="0"
             />
 
     <TextField fx:id="source"
-               GridPane.rowIndex="7"
+               GridPane.rowIndex="10"
                GridPane.columnIndex="1"
             />
 
+    <Label text="Resume File Selected: "
+           GridPane.rowIndex="11"
+           GridPane.columnIndex="0"
+            />
+
+    <Label fx:id="fileSelected"
+               GridPane.rowIndex="11"
+               GridPane.columnIndex="1"
+            />
 
     <Button text="Upload Resume"
             onAction="#uploadResume"
-            GridPane.rowIndex="10"
+            GridPane.rowIndex="12"
             GridPane.columnIndex="1"
             GridPane.halignment="CENTER"
             />
+
 
     <Button text="Submit Job Application"
             onAction="#handleJobSubmittal"

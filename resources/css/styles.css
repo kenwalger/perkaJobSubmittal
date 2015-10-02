@@ -1,7 +1,7 @@
 .root {
     -fx-font-family: 'Perpetua';
-    -fx-hgap: 10;
-    -fx-vgap: 5;
+    /*-fx-hgap: 05;*/
+    /*-fx-vgap: 5;*/
     -fx-background-color: whitesmoke;
     -fx-font-size: 15px;
 }
@@ -13,7 +13,7 @@
 }
 
 .label {
-    -fx-padding: 20px;
+    -fx-padding: 10px;
 }
 
 .text-field {
