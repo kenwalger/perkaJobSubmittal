@@ -5,14 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.fluent.Form;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.impl.client.HttpClients;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Controller {
 
@@ -31,57 +30,48 @@ public class Controller {
     private String resumeFile;
 
     public void handleJobSubmittal(ActionEvent actionEvent) throws Exception {
-        String projectList = ("{\"" + gitHub.getText() +
+        String projectList = ("[\"" + gitHub.getText() +
                 "\", \"" + personalSite.getText() +
-                "\", \"" + projects.getText() + "\"}");
+                "\", \"" + projects.getText() + "\"]");
 
-        String postUrl = "https://api.perka.com/1/communication/job/apply";
+        //URL of API
+        URL postUrl = new URL("https://api.perka.com/1/communication/job/apply");
+
+        // JSON setup
+        String appJSON = ("{\"first_name\":\"" + firstName.getText() +
+                "\",\"last_name\":\"" + lastName.getText() +
+                "\",\"email\":\"" + email.getText() +
+                "\",\"positionID\":\"" + positionId.getText() +
+                "\",\"explanation\":\"" + explanation.getText() +
+                "\",\"projects\":\"" + projectList +
+                "\",\"source\":\"" + source.getText() +
+                "\",\"resume\":\"" + ResumeHandler.encodeFileToBase64Binary(resumeFile) +
+                "\"}");
 
         try {
-//            HttpClient httpClient = HttpClients.createDefault();
-//            String postUrl = "https://api.perka.com/1/communication/job/apply";
-//
-//            HttpPost httpPost = new HttpPost(postUrl);
-//
-//            List<NameValuePair> nvps = new ArrayList<>();
-//            nvps.add(new BasicNameValuePair("first_name", firstName.getText()));
-//            nvps.add(new BasicNameValuePair("last_name", lastName.getText()));
-//            nvps.add(new BasicNameValuePair("email", email.getText()));
-//            nvps.add(new BasicNameValuePair("position_id", positionId.getText()));
-//            nvps.add(new BasicNameValuePair("explanation", explanation.getText()));
-//            nvps.add(new BasicNameValuePair("projects", projectList));
-//            nvps.add(new BasicNameValuePair("source", source.getText()));
-//            nvps.add(new BasicNameValuePair("resume", ResumeHandler.encodeFileToBase64Binary(resumeFile)));
-//
-//            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-//
-//            HttpResponse response = httpClient.execute(httpPost);
-//
-//
-//                System.out.println(response.getStatusLine());
-//                HttpEntity entity = response.getEntity();
-//                EntityUtils.consume(entity);
+            //Connection Setup
+            HttpURLConnection connection = (HttpURLConnection) postUrl.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("Content-Type", "application/json");
 
-            String appJSON = ("{\"first_name\":\"" + firstName.getText() +
-                    "\",\"last_name\":\"" + lastName.getText() +
-                    "\",\"email\":\"" + email.getText() +
-                    "\",\"positionID\":\"" + positionId.getText() +
-                    "\",\"explanation\":\"" + explanation.getText() +
-                    "\",\"projects\":\"" + projectList +
-                    "\",\"source\":\"" + source.getText() +
-                    "\",\"resume\":\"" + ResumeHandler.encodeFileToBase64Binary(resumeFile) +
-                    "\"}");
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(appJSON.getBytes());
 
-            Request.Post(postUrl)
-                    .bodyForm(Form.form().add(appJSON, "")
-                            .build())
-                    .execute().returnContent();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String currentLine;
+            String response = "";
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                response = response + currentLine;
+            }
+            bufferedReader.close();
 
-
-            applicationSubmitted.setText("You just submitted your application information to Perka.com");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
+        applicationSubmitted.setText("You just submitted your application information to Perka.com");
+
     }
 
     public void uploadResume(ActionEvent actionEvent) {

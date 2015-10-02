@@ -29,5 +29,3 @@ You can also email your resume to [jobs@perka.com](mailto:jobs@perka.com), but t
 ####Libraries Used
 
 * Apache Commons Codec
-* Apache HttpClient 4.5
-* Apache HttpCore 4.4
