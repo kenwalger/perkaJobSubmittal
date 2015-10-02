@@ -26,12 +26,16 @@ public class Controller {
     @FXML private TextField source;
     @FXML private Label fileSelected;
     @FXML private Label applicationSubmitted;
+    @FXML private Label applicationResponseCode;
+    @FXML private Label applicationResponseString;
 
     private String resumeFile;
 
     public void handleJobSubmittal(ActionEvent actionEvent) throws Exception {
 
-        // Convert the various projects into a single string
+        //TODO kwa: Form validation
+
+        // Convert the various projects into a single string in array format.
         String projectList = ("[\"" + gitHub.getText() +
                 "\", \"" + personalSite.getText() +
                 "\", \"" + projects.getText() + "\"]");
@@ -49,8 +53,6 @@ public class Controller {
                 ",\"source\":\"" + source.getText() +
                 "\",\"resume\":\"" + ResumeHandler.encodeFileToBase64Binary(resumeFile) +
                 "\"}");
-
-        System.out.println(appJSON);
 
         try {
             //Ready -- Connection Setup
@@ -72,18 +74,20 @@ public class Controller {
             }
             bufferedReader.close(); // STOP!!!
 
-            //Check the response
+            //Check and output the response
             System.out.println(connection.getResponseCode());
             System.out.println(response);
+            applicationSubmitted.setText("You just submitted your application information to Perka.com");
+            applicationResponseCode.setText("Response code: " + connection.getResponseCode());
+            applicationResponseString.setText(response);
 
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        applicationSubmitted.setText("You just submitted your application information to Perka.com");
     }
 
 
-    public void uploadResume(ActionEvent actionEvent) {
+    public void pickResume (ActionEvent actionEvent) {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(

@@ -8,7 +8,7 @@
     <Text text="Perka API Job Application"
           styleClass="title"
           GridPane.rowIndex="0"
-          GridPane.columnSpan="4"
+          GridPane.columnSpan="3"
           GridPane.halignment="CENTER"
             />
 
@@ -120,7 +120,7 @@
             />
 
     <Button text="Upload Resume"
-            onAction="#uploadResume"
+            onAction="#pickResume"
             GridPane.rowIndex="12"
             GridPane.columnIndex="1"
             GridPane.halignment="CENTER"
@@ -140,5 +140,14 @@
            GridPane.columnIndex="1"
             />
 
+    <Label fx:id="applicationResponseCode"
+           GridPane.rowIndex="20"
+           GridPane.columnIndex="0"
+            />
+
+    <Label fx:id="applicationResponseString"
+           GridPane.rowIndex="20"
+           GridPane.columnIndex="1"
+            />
 
 </GridPane>
