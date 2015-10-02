@@ -5,10 +5,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
-import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -19,28 +29,43 @@ public class Controller {
     @FXML private TextField explanation;
     @FXML private TextField gitHub;
     @FXML private TextField personalSite;
-    @FXML private TextField projects;       // Array of strings for project links
+    @FXML private TextField projects;
     @FXML private TextField source;
     @FXML private Label fileSelected;
+    @FXML private Label applicationSubmitted;
 
     private String resumeFile;
 
     public void handleJobSubmittal(ActionEvent actionEvent) throws IOException {
-        System.out.println("\nCool, this seems to kinda-sorta be working");
-
-        String projectList = ("{\"" + gitHub.getText() + "\", \"" + personalSite.getText() + "\", \"" + projects.getText() + "\"}");
-
-        String appJSON = Perka.applicationJSONGenerator(firstName.getText(),
-                lastName.getText(),
-                email.getText(),
-                positionId.getText(),
-                explanation.getText(),
-                projectList,
-                source.getText(),
-                ResumeHandler.encodeFileToBase64Binary(resumeFile));
+        String projectList = ("{\"" + gitHub.getText() +
+                "\", \"" + personalSite.getText() +
+                "\", \"" + projects.getText() + "\"}");
 
 
-        Perka.postApp(appJSON);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String postUrl = "https://api.perka.com/1/communication/job/apply";
+
+        HttpPost httpPost = new HttpPost(postUrl);
+
+        List<NameValuePair> nvps = new ArrayList<>();
+        nvps.add(new BasicNameValuePair("first_name", firstName.getText()));
+        nvps.add(new BasicNameValuePair("last_name", lastName.getText()));
+        nvps.add(new BasicNameValuePair("email", email.getText()));
+        nvps.add(new BasicNameValuePair("position_id", positionId.getText()));
+        nvps.add(new BasicNameValuePair("explanation", explanation.getText()));
+        nvps.add(new BasicNameValuePair("projects", projectList));
+        nvps.add(new BasicNameValuePair("source", source.getText()));
+        nvps.add(new BasicNameValuePair("resume", ResumeHandler.encodeFileToBase64Binary(resumeFile)));
+
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            System.out.println(response.getStatusLine());
+            HttpEntity entity = response.getEntity();
+            EntityUtils.consume(entity);
+        }
+
+        applicationSubmitted.setText("You just submitted your application information to Perka.com");
     }
 
     public void uploadResume(ActionEvent actionEvent) {

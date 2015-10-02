@@ -8,14 +8,14 @@ import org.apache.commons.codec.binary.Base64;
 
 
 /**
- * Created by Ken on 9/29/2015.
+ * Created by Ken on 10/1/2015.
  */
 public class ResumeHandler {
 
     /**
      *
      * @param pdfFile      The PDF version of the resume
-     * @return                  A Base64 version of the PDF resume
+     * @return             A Base64 version of the PDF resume
      * @throws IOException
      */
 

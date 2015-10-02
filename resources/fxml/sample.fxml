@@ -36,7 +36,7 @@
                GridPane.columnIndex="1"
             />
 
-    <Label text="email: "
+    <Label text="Email: "
            GridPane.rowIndex="3"
            GridPane.columnIndex="0"
             />
@@ -118,8 +118,9 @@
             />
 
     <Label fx:id="fileSelected"
-               GridPane.rowIndex="11"
-               GridPane.columnIndex="1"
+           GridPane.rowIndex="11"
+           GridPane.columnSpan="2"
+           GridPane.columnIndex="1"
             />
 
     <Button text="Upload Resume"
@@ -132,9 +133,16 @@
 
     <Button text="Submit Job Application"
             onAction="#handleJobSubmittal"
-            GridPane.rowIndex="15"
+            GridPane.rowIndex="16"
             GridPane.columnIndex="1"
             GridPane.halignment="CENTER"
             />
+
+    <Label fx:id="applicationSubmitted"
+           GridPane.rowIndex="18"
+           GridPane.columnSpan="2"
+           GridPane.columnIndex="1"
+            />
+
 
 </GridPane>

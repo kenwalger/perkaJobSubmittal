@@ -22,3 +22,12 @@ You can also email your resume to [jobs@perka.com](mailto:jobs@perka.com), but t
 | projects | Links to your GitHub profile, personal projects, or other awesome things that you've done | Array of Strings | No |
 | source | How did you find Perka? (avid user, talent scout, friend, Hacker School…) | String | No |
 | resume | Your resume in PDF format | base64 String | Yes |
+
+
+==============
+
+####Libraries Used
+
+* Apache Commons Codec
+* Apache HttpClient 4.5
+* Apache HttpCore 4.4

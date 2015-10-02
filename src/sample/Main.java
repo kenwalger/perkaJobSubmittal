@@ -11,11 +11,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
-        primaryStage.setTitle("Perka Job Application Submission");
+        primaryStage.setTitle("Perka Job Application Submission - by Ken W. Alger");
         primaryStage.setScene(new Scene(root, 750, 675)); // width, height
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
