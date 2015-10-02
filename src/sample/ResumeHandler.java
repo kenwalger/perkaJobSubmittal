@@ -14,17 +14,14 @@ public class ResumeHandler {
 
     /**
      *
-     * @param currentFolder     Path to the selected document
-     * @param pdfFileName       The PDF version of the resume
+     * @param pdfFile      The PDF version of the resume
      * @return                  A Base64 version of the PDF resume
      * @throws IOException
      */
 
-    public static String encodeFileToBase64Binary(File currentFolder, String pdfFileName)  throws IOException {
+    public static String encodeFileToBase64Binary(String pdfFile)  throws IOException {
 
-        String pathToBinaryData = currentFolder.getAbsolutePath() + "/" + pdfFileName;
-
-        File file = new File(pathToBinaryData);
+        File file = new File(pdfFile);
         byte[] bytes = loadFile(file);
         byte[] encoded = Base64.encodeBase64(bytes);
 

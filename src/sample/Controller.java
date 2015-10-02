@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 
 import javax.xml.soap.Text;
 import java.io.File;
+import java.io.IOException;
 
 public class Controller {
 
@@ -22,7 +23,9 @@ public class Controller {
     @FXML private TextField source;
     @FXML private Label fileSelected;
 
-    public void handleJobSubmittal(ActionEvent actionEvent) {
+    private String resumeFile;
+
+    public void handleJobSubmittal(ActionEvent actionEvent) throws IOException {
         System.out.println("\nCool, this seems to kinda-sorta be working");
 
         String projectList = ("{\"" + gitHub.getText() + "\", \"" + personalSite.getText() + "\", \"" + projects.getText() + "\"}");
@@ -34,8 +37,8 @@ public class Controller {
                 explanation.getText(),
                 projectList,
                 source.getText(),
-//              resume.getInitialFileName());
-                "resume.pdf");
+                ResumeHandler.encodeFileToBase64Binary(resumeFile));
+
 
         Perka.postApp(appJSON);
     }
@@ -49,7 +52,19 @@ public class Controller {
         File selectedFile = fileChooser.showOpenDialog(fileSelected.getScene().getWindow());
 
         if (selectedFile != null) {
-            fileSelected.setText(selectedFile.getName());
+            fileSelected.setText(selectedFile.toPath().toString());
+            System.out.println("Path: " + selectedFile.toPath());
+            System.out.println("File: " + selectedFile.getName());
+
+            resumeFile = selectedFile.toPath().toString();
+
+            try {
+                String resume = ResumeHandler.encodeFileToBase64Binary(resumeFile);
+                System.out.println( resume );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else {
             fileSelected.setText("PDF Resume file selection cancelled.");
         }
