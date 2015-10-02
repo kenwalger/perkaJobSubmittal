@@ -30,6 +30,8 @@ public class Controller {
     private String resumeFile;
 
     public void handleJobSubmittal(ActionEvent actionEvent) throws Exception {
+
+        // Convert the various projects into a single string
         String projectList = ("[\"" + gitHub.getText() +
                 "\", \"" + personalSite.getText() +
                 "\", \"" + projects.getText() + "\"]");
@@ -41,52 +43,56 @@ public class Controller {
         String appJSON = ("{\"first_name\":\"" + firstName.getText() +
                 "\",\"last_name\":\"" + lastName.getText() +
                 "\",\"email\":\"" + email.getText() +
-                "\",\"positionID\":\"" + positionId.getText() +
+                "\",\"position_id\":\"" + positionId.getText() +
                 "\",\"explanation\":\"" + explanation.getText() +
-                "\",\"projects\":\"" + projectList +
-                "\",\"source\":\"" + source.getText() +
+                "\",\"projects\": " + projectList +
+                ",\"source\":\"" + source.getText() +
                 "\",\"resume\":\"" + ResumeHandler.encodeFileToBase64Binary(resumeFile) +
                 "\"}");
 
+        System.out.println(appJSON);
+
         try {
-            //Connection Setup
+            //Ready -- Connection Setup
             HttpURLConnection connection = (HttpURLConnection) postUrl.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Type", "application/json");
 
+            //Set
             OutputStream outputStream = connection.getOutputStream();
             outputStream.write(appJSON.getBytes());
 
+            //Go!
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String currentLine;
             String response = "";
             while ((currentLine = bufferedReader.readLine()) != null) {
                 response = response + currentLine;
             }
-            bufferedReader.close();
+            bufferedReader.close(); // STOP!!!
+
+            //Check the response
+            System.out.println(connection.getResponseCode());
+            System.out.println(response);
 
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
         applicationSubmitted.setText("You just submitted your application information to Perka.com");
-
     }
+
 
     public void uploadResume(ActionEvent actionEvent) {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            new FileChooser.ExtensionFilter("PDF Files", "*.pdf")); // limit fileChooser options to *.pdf files
         fileChooser.setTitle("Select Resume File");
         File selectedFile = fileChooser.showOpenDialog(fileSelected.getScene().getWindow());
-
         if (selectedFile != null) {
             fileSelected.setText(selectedFile.toPath().toString());
-
             resumeFile = selectedFile.toPath().toString();
-
         } else {
             fileSelected.setText("PDF Resume file selection cancelled.");
         }
